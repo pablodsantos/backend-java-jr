@@ -1,43 +1,45 @@
 package application;
 
-import java.util.Locale;
 import java.util.Scanner;
-import entities.Funcionario;
+
+import entities.Estudante;
 
 public class Program2 {
 
 	public static void main(String[] args) {
-		Locale.setDefault(Locale.US);
-		
-		Funcionario funcionario = new Funcionario();
 		Scanner sc = new Scanner(System.in);
+		int numeroMaximoDeQuartos = 10;
+		Estudante[] estudantes = new Estudante[numeroMaximoDeQuartos];
 		
-		System.out.println("Digite o nome do funcionario: ");
-		funcionario.nome = sc.nextLine();
+		System.out.println("Disponiveis[10] - Numero de quartos:");
+		int quantidadeDeQuartos = sc.nextInt();
 		
-		System.out.println("Salario bruto: ");
-		funcionario.salarioBruto = sc.nextDouble();
+		for(int i=0; i<quantidadeDeQuartos; i++) {
+			sc.nextLine();
+			System.out.println("Nome: ");
+			String nome = sc.nextLine();
+			System.out.println("E-mail: ");
+			String email = sc.nextLine();
+			int numeroQuarto;
+			do {
+				System.out.println("Numero do quarto: ");
+				numeroQuarto = sc.nextInt();
+			}while(numeroQuarto > numeroMaximoDeQuartos);
+						
+			estudantes[numeroQuarto] = new Estudante(nome,email);
+		}
 		
-		System.out.println("Taxa: ");
-		funcionario.imposto = sc.nextDouble();
-		
-		
-		System.out.println(
-				"Nome: " + funcionario.nome + ", " +
-				"Salario Bruto: " + funcionario.SalarioLiquido()
-		);
-		
-		System.out.println("Digite a taxa de acrescimo: ");
-		double taxaParaAcrescentar = sc.nextDouble();
-		funcionario.acrescentaSalario(taxaParaAcrescentar);
-		
-		System.out.print("Update data: ");
-		System.out.println(
-				"Nome: " + funcionario.nome + ", " +
-				"Salario Bruto: " + funcionario.salarioBruto
-		);		
-		
+		imprimeVetorDeAlunos(estudantes, numeroMaximoDeQuartos);
 		sc.close();
 	}
-
+	
+	private static void imprimeVetorDeAlunos(Estudante[] estudantes, int numeroMaximoDeQuartos) {
+		for(int i=0; i<numeroMaximoDeQuartos; i++) {
+			if(estudantes[i] != null) {
+				System.out.println("Nome: " + estudantes[i].getName()
+				+ " | E-mail: " + estudantes[i].getEmail()
+				+ " | Numero do quarto: " + i);
+			}
+		}
+	}
 }
