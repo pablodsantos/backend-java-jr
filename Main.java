@@ -1,32 +1,39 @@
-package application;
-
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
 
 	public static void main(String[] args) {
-		Locale.setDefault(Locale.US);
+
 		Scanner sc = new Scanner(System.in);
 		
-		System.out.println("Tamanho do vetor: ");
-		int n = sc.nextInt();
-		double[] vect = new double[n];
-		
-		for(int i = 0; i < n; i++) {
-			System.out.printf("Valor %d: ", (i + 1));			
-			vect[i]  = sc.nextDouble();
-		}
+		System.out.println("Entre com as medidas do triangulo x: ");
+		double xa = sc.nextDouble();
+		double xb = sc.nextDouble();
+		double xc = sc.nextDouble();
 
-		imprimeVetor(vect);
+		System.out.println("Entre com as medidas do triangulo y: ");
+		double ya = sc.nextDouble();
+		double yb = sc.nextDouble();
+		double yc = sc.nextDouble();
 		
 		sc.close();
-	}
-
-	private static void imprimeVetor(double[] vetor) {
-		System.out.println("Vetor armazenado: ");
-		for(int i = 0; i < vetor.length; i++) {
-			System.out.printf("%.2f\t", vetor[i]);
+		
+		System.out.println("Area do triangulo x: " + areaTrianglo(xa,xb,xc));
+		System.out.println("Area do triangulo y: " + areaTrianglo(ya,yb,yc));
+		
+		if(areaTrianglo(xa,xb,xc) > areaTrianglo(ya,yb,yc)) {
+			System.out.println("X");
+		}else {
+			System.out.println("Y");
 		}
+
 	}
+	
+	public static double areaTrianglo(double a, double b, double c) {
+		double p = (a + b + c)/2.0;
+		
+		double area = Math.sqrt(p*((p-a)*(p-b)*(p-c)));
+		
+		return area;
+	} 
 }
