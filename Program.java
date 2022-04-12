@@ -1,43 +1,45 @@
 package application;
 
-import java.util.Locale;
 import java.util.Scanner;
 
-import entities.Product;
+import entitities.Aluguel;
 
 public class Program {
-
+	
 	public static void main(String[] args) {
-		Locale.setDefault(Locale.US);
+		int TAM = 10;
 		
 		Scanner sc = new Scanner(System.in);
 		
-		Product product = new Product();
+		System.out.print("Quantos quartos deseja alugar: ");
+		int quantityRoom = sc.nextInt();
 		
-		System.out.println("Enter product Data");
-		System.out.print("Name: ");
-		product.name = sc.nextLine();
+		Aluguel[] vectAluguel = new Aluguel[TAM];
+			
+		for(int i = 0; i < quantityRoom; i++) {
+			System.out.printf("\nRent #" + (i + 1) + "\n");
+			System.out.print("Name: ");
+			String name = sc.next();
+			System.out.print("Email: ");
+			String email = sc.next();
+			System.out.print("Room: ");
+			int room = sc.nextInt();
+			
+			vectAluguel[room] = new Aluguel(name, email, room);
+		}
 		
-		System.out.print("Price: ");
-		product.price = sc.nextDouble();
-		
-		System.out.print("Quantiade no stock: ");
-		product.quantity = sc.nextInt();
-		
-		//System.out.println(product.name + ", " + product.price + ", " + product.quantity);
-		
-		System.out.println();
-		System.out.println("Product data: " + product);
-		System.out.println();
-
-		System.out.println("Digite a quantidade de produtos: ");
-		int quantity = sc.nextInt();
-		product.addProducts(quantity);
-		
-		System.out.println("Update Product data: " + product);
-		System.out.println();
+		imprimeVetor(vectAluguel);
 		
 		sc.close();
 	}
-
+	
+	public static void imprimeVetor(Aluguel[] vectAluguel) {
+		System.out.println("\nBusy rooms: ");
+				
+		for(int i = 0; i < vectAluguel.length; i++) {
+			if(vectAluguel[i] != null) {
+				System.out.println(vectAluguel[i]);
+			}
+		}
+	}
 }
