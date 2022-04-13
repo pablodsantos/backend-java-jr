@@ -1,45 +1,81 @@
 package application;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
-import entitities.Aluguel;
+import entities.Employe;
 
 public class Program {
-	
+
 	public static void main(String[] args) {
-		int TAM = 10;
+		Locale.setDefault(Locale.US);
 		
 		Scanner sc = new Scanner(System.in);
 		
-		System.out.print("Quantos quartos deseja alugar: ");
-		int quantityRoom = sc.nextInt();
+		Integer id;
+		String name;
+		Double salary;
 		
-		Aluguel[] vectAluguel = new Aluguel[TAM];
+		System.out.println("How many employes will to registered? ");
+		int quantityEmployes = sc.nextInt();
+		
+		List <Employe> listEmployes = new ArrayList<>();
+		
+		for (int i = 0; i < quantityEmployes; i++) {
+			System.out.println("\nEmploye #" + (i+1));
+			System.out.print("Id: ");
+			id = sc.nextInt();
 			
-		for(int i = 0; i < quantityRoom; i++) {
-			System.out.printf("\nRent #" + (i + 1) + "\n");
+			for(int j = 0; j <listEmployes.size(); j++) {
+				while(listEmployes.get(j).getId() == id) {
+					System.out.println("Id exists! Please another value.");
+					System.out.print("Id: ");
+					id = sc.nextInt();
+				}
+			}
+			
 			System.out.print("Name: ");
-			String name = sc.next();
-			System.out.print("Email: ");
-			String email = sc.next();
-			System.out.print("Room: ");
-			int room = sc.nextInt();
+			name = sc.next();
+			System.out.print("Salary: ");
+			salary = sc.nextDouble();
 			
-			vectAluguel[room] = new Aluguel(name, email, room);
+			Employe employe = new Employe(id, name, salary);
+			listEmployes.add(employe);
 		}
 		
-		imprimeVetor(vectAluguel);
+		System.out.println("\nList of employes: ");
+		for(Employe emp : listEmployes) {
+			System.out.println(emp);
+		}
+		
+		System.out.print("Enter the employe id that will have salary increase: ");
+		Integer idIncrease = sc.nextInt();
 		
 		sc.close();
-	}
-	
-	public static void imprimeVetor(Aluguel[] vectAluguel) {
-		System.out.println("\nBusy rooms: ");
 				
-		for(int i = 0; i < vectAluguel.length; i++) {
-			if(vectAluguel[i] != null) {
-				System.out.println(vectAluguel[i]);
+		for(int i = 0; i < listEmployes.size(); i++) {
+			int count = 0;
+			if(listEmployes.get(i).getId() == idIncrease) {
+				System.out.println("Id encontrado!");
+				System.out.print("Enter to percentage: ");
+				double percentage = sc.nextDouble();
+				listEmployes.get(i).addSalary(percentage);
+				break;
+			}else {
+				count++;
 			}
+			
+			if(count == listEmployes.size() - 1) {
+				System.out.println("Id not find!");
+				return;
+			}
+		}
+		
+		System.out.println("\nList of employes update: ");
+		for(Employe emp : listEmployes) {
+			System.out.println(emp);
 		}
 	}
 }
